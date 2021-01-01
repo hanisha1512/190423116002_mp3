@@ -1,0 +1,63 @@
+<html lang="en - US">
+    <head>
+        <meta charset="utf-8">
+        <title>Stopwatch</title>
+        <style>
+            .p {
+                font-family: sans-serif;
+              }
+        </style>
+    </head>
+    <body>
+        <p class="clock"></p>
+        <p><button class="start"> Start </button>
+            <button class="stop"> Stop </button>
+            <button class="reset"> Reset </button></p>
+
+        <script>
+            let count = 0;
+            let watch;
+            const displayPara = document.querySelector('.clock');
+
+            function displayTime()
+            {
+                let hour = Math.floor(count / 3600)
+                let minute = Math.floor((count % 3600)/60);
+                let second = Math.floor(count % 60);
+
+                let displayHour = (hour < 10)? '0' + hour : hour;
+                let displayMinute = (minute < 10)? '0' + minute : minute;
+                let displaySecond = (second < 10)? '0' + second : second;
+
+                displayPara.textContent = displayHour + ':'+ displayMinute + ':' + displaySecond;
+                count++;
+            }
+
+            const startbtn = document.querySelector('.start');
+            const stopbtn = document.querySelector('.stop');
+            const resetbtn = document.querySelector('.reset');
+
+            startbtn.addEventListener('click', () => 
+            {
+                    watch = setInterval(displayTime, 1000);
+                    startbtn.disabled = true;
+            });
+
+            stopbtn.addEventListener('click', () => 
+            {
+                clearInterval(watch);
+                startbtn.disabled = false;
+            });
+
+            resetbtn.addEventListener('click',() =>
+            {
+                clearInterval(watch);
+                startbtn.disabled = false;
+                count = 0;
+                displayTime();
+            });
+
+            displayTime();
+        </script>
+    </body>
+</html>
